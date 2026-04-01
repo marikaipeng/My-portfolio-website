@@ -1,0 +1,254 @@
+:root {
+  --color1: #667eea;
+  --color2: #764ba2;
+  --color3: #ff9a9e;
+  --color4: #fad0c4;
+  --text-dark: #333;
+  --card-bg: #ffffff;
+}
+
+body {
+  font-family: Arial;
+  margin: 0;
+  background: linear-gradient(-45deg, var(--color1), var(--color2), var(--color3), var(--color4));
+  background-size: 400% 400%;
+  animation: gradientBG 10s ease infinite;
+  color: white;
+  text-align: center;
+}
+
+/* Smooth scrolling */
+html{
+scroll-behavior:smooth;
+}
+
+/* Navbar */
+nav{
+background:rgba(0,0,0,0.4);
+padding:15px;
+position:sticky;
+top:0;
+}
+
+nav a{
+color:white;
+margin:15px;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#ffd700;
+}
+
+/* Hero section */
+.hero{
+padding:100px 20px;
+}
+
+/* Button */
+button{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:white;
+color:#764ba2;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+background:#ffd700;
+color:black;
+}
+
+/* Sections */
+section{
+padding:60px;
+}
+
+/* Project container */
+.projects{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+/* Cards */
+.card{
+background:white;
+color:black;
+padding:20px;
+margin:10px;
+border-radius:10px;
+width:200px;
+box-shadow:0 4px 10px rgba(0,0,0,0.3);
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+/* Contact form */
+form{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+input, textarea{
+width:250px;
+margin:10px;
+padding:10px;
+border:none;
+border-radius:5px;
+}
+
+textarea{
+height:100px;
+}
+
+/* ===== Improved Section Styling ===== */
+section {
+  margin: 20px auto;
+  width: 80%;
+  background: #f9f9f9;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  animation: fadeIn 1s ease-in;
+}
+
+/* ===== Gradient Cards ===== */
+.card {
+  background: linear-gradient(135deg, #ffffff, #e6e6ff);
+  color: black;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 15px;
+  width: 220px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.05);
+}
+
+/* ===== List Styling ===== */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  background: #ffffff;
+  margin: 10px auto;
+  padding: 12px;
+  width: 250px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+ul li:hover {
+  transform: scale(1.05);
+}
+
+/* ===== Gradient Headings ===== */
+h2 {
+  font-size: 28px;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+/* ===== Navbar Glass Effect ===== */
+nav {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+}
+
+/* ===== Button Glow ===== */
+button:hover {
+  background: #ffd700;
+  color: black;
+  box-shadow: 0 0 10px #ffd700;
+}
+
+/* ===== Fade Animation ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Background animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Improved section */
+section {
+  margin: 20px auto;
+  width: 80%;
+  background: var(--card-bg);
+  color: var(--text-dark);
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  animation: fadeIn 1s ease-in;
+}
+
+/* Cards */
+.card {
+  background: linear-gradient(135deg, var(--color3), var(--color4));
+  color: black;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 15px;
+  width: 220px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px) scale(1.05);
+}
+
+/* Headings */
+h2 {
+  font-size: 28px;
+  background: linear-gradient(to right, var(--color1), var(--color2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Buttons */
+button:hover {
+  background: var(--color3);
+  color: black;
+  box-shadow: 0 0 10px var(--color3);
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

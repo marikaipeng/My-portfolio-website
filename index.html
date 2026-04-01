@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jeevitha Portfolio</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav>
+<a href="#">Home</a>
+<a href="#about">About</a>
+<a href="#qualification">Qualification</a>
+<a href="#certificates">Certificates</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+<h1>Hello, I'm Mari Kaipeng👋</h1>
+<p>Student in KJU</p>
+<button onclick="showMessage()">View My Work</button>
+</section>
+
+<!-- About -->
+<section id="about" class="section">
+<h2>About Me</h2>
+<p>I am passionate about coding and building creative web applications. I am currently learning full-stack development.</p>
+</section>
+
+<section id="qualification">
+<h2>Qualification</h2>
+<ul>
+<li>10th Standard - Passed(61%)</li>
+<li>12th Standard (Arts) - Passed(67%)</li>
+</ul>
+</section>
+
+<section id="certificates">
+<h2>Certificates</h2>
+<ul>
+<li>NASSCOM Certification</li>
+<li>Lernathon Participation Certificate</li>
+<li>MongoDB Basics Certificate</li>
+</ul>
+</section>
+
+<section id="skills">
+<h2>Skills</h2>
+<ul>
+<li>C Programming</li>
+<li>C++ Programming</li>
+<li>Node.js (Basics)</li>
+<li>HTML, CSS, JavaScript</li>
+</ul>
+</section>
+
+<!-- Projects -->
+<section id="projects" class="section">
+<h2>My Projects</h2>
+
+<div class="projects">
+
+<div class="card">
+<h3>Portfolio Website</h3>
+<p>Personal portfolio with frontend and backend.</p>
+</div>
+
+<div class="card">
+<h3>Student Management</h3>
+<p>CRUD system using Node.js and database.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- Contact -->
+<section id="contact" class="contact">
+<h2>Contact Me</h2>
+
+<form action="/contact" method="POST">
+
+<input type="text" name="name" placeholder="Your Name" required>
+
+<input type="email" name="email" placeholder="Your Email" required>
+
+<textarea name="message" placeholder="Your Message" required></textarea>
+
+<button type="submit">Send Message</button>
+
+</form>
+
+</section>
+
+<script src="script.js"></script>
+
+</body>
+</html>
