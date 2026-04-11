@@ -47,6 +47,8 @@ app.get("/projects", (req, res) => {
 // CONTACT API
 // ======================
 app.post("/contact", async (req, res) => {
+  console.log("Incoming:", req.body);
+
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
@@ -59,36 +61,23 @@ app.post("/contact", async (req, res) => {
       [name, email, message]
     );
 
-    res.json({ message: "✅ Message saved" });
+    res.json({ message: "✅ Message saved successfully" });
 
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "DB error" });
+    console.error("DB ERROR:", err);
+    res.status(500).json({ error: "Database error" });
   }
 });
 
 // ======================
-// LOGIN API
-// ======================
-app.post("/login", (req, res) => {
-  const { username, password } = req.body;
-
-  if (username === "admin" && password === "1234") {
-    res.json({ success: true });
-  } else {
-    res.status(401).json({ success: false });
-  }
-});
-
-// ======================
-// ADMIN API
+// ADMIN API (VIEW MESSAGES)
 // ======================
 app.get("/admin/messages", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM contacts ORDER BY id DESC");
     res.json(result.rows);
-  } catch {
-    res.status(500).send("Error");
+  } catch (err) {
+    res.status(500).send("Error fetching messages");
   }
 });
 
