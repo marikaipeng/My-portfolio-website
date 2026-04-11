@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Show message function for the hero button
+
+    // ✅ PUT IT HERE (TOP)
     window.showMessage = () => {
         document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
     };
@@ -8,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
-    // 1. Fetch Projects from Backend
+    // Fetch Projects
     const fetchProjects = async () => {
         try {
             const response = await fetch('http://localhost:5000/projects');
@@ -17,8 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const projects = await response.json();
             displayProjects(projects);
         } catch (error) {
-            projectGrid.innerHTML = `<p class="error">Unable to load projects. Please try again later.</p>`;
-            console.error(error);
+            projectGrid.innerHTML = `<p class="error">Unable to load projects.</p>`;
         }
     };
 
@@ -32,18 +32,19 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     };
 
-    // 2. Handle Contact Form Submission
+    // Contact Form
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const formData = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            message: document.getElementById('message').value
+            name: name.value,
+            email: email.value,
+            message: message.value
         };
 
         try {
             formStatus.textContent = 'Sending...';
+
             const response = await fetch('http://localhost:5000/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -51,13 +52,14 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                formStatus.innerHTML = '<p class="success">Message sent successfully!</p>';
+                formStatus.innerHTML = '✅ Message sent!';
                 contactForm.reset();
             } else {
-                throw new Error('Server error');
+                throw new Error();
             }
-        } catch (error) {
-            formStatus.innerHTML = '<p class="error">Oops! Something went wrong.</p>';
+
+        } catch {
+            formStatus.innerHTML = '❌ Error sending message';
         }
     });
 
