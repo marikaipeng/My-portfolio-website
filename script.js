@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Show message function for the hero button
+    window.showMessage = () => {
+        document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+    };
+
     const projectGrid = document.getElementById('project-grid');
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
