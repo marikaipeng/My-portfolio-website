@@ -12,7 +12,7 @@
 
 <!-- Navigation -->
 <nav>
-<a href="#">Home</a>
+<a href="#home">Home</a>
 <a href="#about">About</a>
 <a href="#qualification">Qualification</a>
 <a href="#certificates">Certificates</a>
@@ -22,27 +22,32 @@
 </nav>
 
 <!-- Hero Section -->
-<section class="hero">
-<h1>Hello, I'm Mari Kaipeng👋</h1>
+<section id="home" class="hero">
+<h1>Hello, I'm Mari Kaipeng 👋</h1>
 <p>Student in KJU</p>
-<button onclick="showMessage()">View My Work</button>
+<button onclick="scrollToProjects()">View My Work</button>
 </section>
 
 <!-- About -->
 <section id="about" class="section">
 <h2>About Me</h2>
-<p>I am passionate about coding and building creative web applications. I am currently learning full-stack development.</p>
+<p>
+I am passionate about coding and building creative web applications. 
+I am currently learning full-stack development.
+</p>
 </section>
 
-<section id="qualification">
+<!-- Qualification -->
+<section id="qualification" class="section">
 <h2>Qualification</h2>
 <ul>
-<li>10th Standard - Passed(61%)</li>
-<li>12th Standard (Arts) - Passed(67%)</li>
+<li>10th Standard - Passed (61%)</li>
+<li>12th Standard (Arts) - Passed (67%)</li>
 </ul>
 </section>
 
-<section id="certificates">
+<!-- Certificates -->
+<section id="certificates" class="section">
 <h2>Certificates</h2>
 <ul>
 <li>NASSCOM Certification</li>
@@ -51,7 +56,8 @@
 </ul>
 </section>
 
-<section id="skills">
+<!-- Skills -->
+<section id="skills" class="section">
 <h2>Skills</h2>
 <ul>
 <li>C Programming</li>
@@ -65,35 +71,25 @@
 <section id="projects" class="section">
 <h2>My Projects</h2>
 
-<div class="projects">
-
-<div class="card">
-<h3>Portfolio Website</h3>
-<p>Personal portfolio with frontend and backend.</p>
-</div>
-
-<div class="card">
-<h3>Student Management</h3>
-<p>CRUD system using Node.js and database.</p>
-</div>
-
+<div id="project-grid" class="projects">
+<!-- Projects will load from backend -->
 </div>
 
 </section>
 
 <!-- Contact -->
-<section id="contact" class="contact">
+<section id="contact" class="section">
 <h2>Contact Me</h2>
 
-<form action="https://formsubmit.co/kaipengmary01@gmail.com" method="POST">
+<form id="contact-form">
 
-<input type="text" name="name" placeholder="Your Name" required>
-
-<input type="email" name="email" placeholder="Your Email" required>
-
-<textarea name="message" placeholder="Your Message" required></textarea>
+<input id="name" type="text" placeholder="Your Name" required>
+<input id="email" type="email" placeholder="Your Email" required>
+<textarea id="message" placeholder="Your Message" required></textarea>
 
 <button type="submit">Send Message</button>
+
+<p id="form-status"></p>
 
 </form>
 
