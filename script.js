@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             formStatus.textContent = 'Sending...';
 
-            const response = await fetch('http://localhost:5000/contact', {
+            const API_URL = "https://your-backend-url.onrender.com"; {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(formData)
