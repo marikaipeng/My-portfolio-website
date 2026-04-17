@@ -35,36 +35,43 @@ document.addEventListener("DOMContentLoaded", () => {
     const status = document.getElementById("form-status");
 
     form.addEventListener("submit", async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        const data = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            message: document.getElementById("message").value
-        };
+    const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        message: document.getElementById("message").value
+    };
 
-        status.textContent = "Sending...";
+    status.textContent = "Sending...";
 
+    try {
+        const res = await fetch(`${API_URL}/contact`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const text = await res.text(); // safer debug
+
+        let result;
         try {
-            const res = await fetch(`${API_URL}/contact`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            });
-
-            const result = await res.json();
-
-            if (!res.ok) throw new Error(result.error);
-
-            status.textContent = "Message sent successfully ✅";
-            form.reset();
-
-        } catch (err) {
-            status.textContent = "Failed to send message ❌";
+            result = JSON.parse(text);
+        } catch {
+            throw new Error("Invalid JSON from server");
         }
-    });
 
+        if (!res.ok) throw new Error(result.error || "Request failed");
+
+        status.textContent = "Message sent successfully ✅";
+        form.reset();
+
+    } catch (err) {
+        console.error(err);
+        status.textContent = "Failed to send message ❌";
+    }
+});
     loadProjects();
 });
