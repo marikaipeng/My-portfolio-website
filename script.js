@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ✅ PUT IT HERE (TOP)
-    window.showMessage = () => {
-        document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-    };
+    window.scrollToProjects = () => {
+    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+};
 
     const projectGrid = document.getElementById('project-grid');
     const contactForm = document.getElementById('contact-form');
