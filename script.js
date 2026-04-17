@@ -1,4 +1,4 @@
-const API_URL = "https://my-portfolio-website-1-ot32.onrender.com";
+const API_URL = "https://my-portfolio-backend-8di4.onrender.com";
 
 // smooth scroll
 window.scrollToProjects = () => {
