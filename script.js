@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const API_URL = "https://postgresql://my_portfolio_website_j2ng_user:password@hostname:5432/dbname"; //
+    const API_URL = "https://my-portfolio-website-1-ot32.onrender.com";
 
+    // Scroll button
     window.scrollToProjects = () => {
         document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
     };
@@ -10,7 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
+    // =========================
     // FETCH PROJECTS
+    // =========================
     const fetchProjects = async () => {
         try {
             const response = await fetch(`${API_URL}/projects`);
@@ -24,39 +27,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `).join('');
 
-        } catch {
-            projectGrid.innerHTML = `<p>Failed to load projects</p>`;
+        } catch (err) {
+            projectGrid.innerHTML = `<p>❌ Failed to load projects</p>`;
         }
     };
 
+    // =========================
     // CONTACT FORM
+    // =========================
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const formData = {
-            name: name.value,
-            email: email.value,
-            message: message.value
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            message: document.getElementById("message").value
         };
 
         try {
-            formStatus.textContent = 'Sending...';
+            formStatus.textContent = "Sending...";
 
             const response = await fetch(`${API_URL}/contact`, {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(formData)
             });
 
+            const data = await response.json();
+
             if (response.ok) {
-                formStatus.textContent = '✅ Message sent!';
+                formStatus.textContent = "✅ Message sent successfully!";
                 contactForm.reset();
             } else {
-                throw new Error();
+                formStatus.textContent = "❌ Failed to send message";
             }
 
-        } catch {
-            formStatus.textContent = '❌ Error sending message';
+        } catch (error) {
+            formStatus.textContent = "❌ Server error";
         }
     });
 
