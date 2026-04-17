@@ -36,32 +36,28 @@ document.addEventListener('DOMContentLoaded', () => {
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const formData = {
+        const form = document.getElementById("contactForm");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
     name: document.getElementById("name").value,
     email: document.getElementById("email").value,
     message: document.getElementById("message").value
-};
+  };
 
-        try {
-            formStatus.textContent = 'Sending...';
+  const response = await fetch("https://your-backend-url.onrender.com/contact", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
 
-            const response = await fetch('http://localhost:5000/contact', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
-
-            if (response.ok) {
-                formStatus.innerHTML = '✅ Message sent!';
-                contactForm.reset();
-            } else {
-                throw new Error();
-            }
-
-        } catch {
-            formStatus.innerHTML = '❌ Error sending message';
-        }
-    });
+  const result = await response.json();
+  alert(result.message);
+});
 
     fetchProjects();
 });
