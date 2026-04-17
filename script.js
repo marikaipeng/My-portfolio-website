@@ -96,3 +96,36 @@ document.addEventListener("DOMContentLoaded", () => {
     // Load projects on page load
     fetchProjects();
 });
+
+const messagesBox = document.getElementById("messages-box");
+
+// Load messages from backend
+async function loadMessages() {
+    try {
+        messagesBox.innerHTML = "<p>Loading messages...</p>";
+
+        const res = await fetch(`${API_URL}/messages`);
+
+        if (!res.ok) throw new Error("Failed to fetch");
+
+        const messages = await res.json();
+
+        if (!Array.isArray(messages) || messages.length === 0) {
+            messagesBox.innerHTML = "<p>No messages found</p>";
+            return;
+        }
+
+        messagesBox.innerHTML = messages.map(msg => `
+            <div class="card">
+                <h3>${msg.name}</h3>
+                <p><b>Email:</b> ${msg.email}</p>
+                <p>${msg.message}</p>
+                <small>ID: ${msg.id}</small>
+            </div>
+        `).join("");
+
+    } catch (err) {
+        console.error(err);
+        messagesBox.innerHTML = "<p>❌ Failed to load messages</p>";
+    }
+}
