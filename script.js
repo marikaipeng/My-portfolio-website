@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="card">
                     <h3>${project.title}</h3>
                     <p>${project.description}</p>
-                    <small>Tech: ${project.techStack.join(', ')}</small>
+                    <small>Tech: ${project.techstack.join(', ')}</small>
                 </div>
             `).join('');
 
