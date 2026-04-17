@@ -1,32 +1,45 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const API_URL = "https://my-portfolio-website-m9x2.onrender.com";
-
-    // Scroll button
-    window.scrollToProjects = () => {
-        document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-    };
-
-    const projectGrid = document.getElementById('project-grid');
-    const contactForm = document.getElementById('contact-form');
-    const formStatus = document.getElementById('form-status');
+    // 🔥 YOUR LIVE BACKEND URL (FIXED)
+    const API_URL = "https://my-portfolio-website-1-ot32.onrender.com";
 
     // =========================
-    // FETCH PROJECTS
+    // SCROLL FUNCTION
+    // =========================
+    window.scrollToProjects = () => {
+        const section = document.getElementById("projects");
+        if (section) {
+            section.scrollIntoView({ behavior: "smooth" });
+        }
+    };
+
+    // Elements
+    const projectGrid = document.getElementById("project-grid");
+    const contactForm = document.getElementById("contact-form");
+    const formStatus = document.getElementById("form-status");
+
+    if (!projectGrid || !contactForm) {
+        console.error("Missing required HTML elements");
+        return;
+    }
+
+    // =========================
+    // LOAD PROJECTS FROM API
     // =========================
     const fetchProjects = async () => {
         try {
+            projectGrid.innerHTML = "<p>Loading projects...</p>";
+
             const response = await fetch(`${API_URL}/projects`);
 
             if (!response.ok) {
-                throw new Error("API error");
+                throw new Error("Failed to fetch projects");
             }
 
             const projects = await response.json();
 
-            // Handle empty or invalid data
             if (!Array.isArray(projects) || projects.length === 0) {
-                projectGrid.innerHTML = `<p>No projects found</p>`;
+                projectGrid.innerHTML = "<p>No projects found</p>";
                 return;
             }
 
@@ -34,20 +47,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="card">
                     <h3>${project.title}</h3>
                     <p>${project.description}</p>
-                    <small>Tech: ${project.techstack?.join(', ') || 'N/A'}</small>
+                    <small>Tech: ${project.techstack?.join(", ") || "N/A"}</small>
                 </div>
-            `).join('');
+            `).join("");
 
-        } catch (err) {
-            console.error("Project Fetch Error:", err);
-            projectGrid.innerHTML = `<p>❌ Failed to load projects</p>`;
+        } catch (error) {
+            console.error("Project Fetch Error:", error);
+            projectGrid.innerHTML = "<p>❌ Failed to load projects</p>";
         }
     };
 
     // =========================
-    // CONTACT FORM
+    // CONTACT FORM SUBMIT
     // =========================
-    contactForm.addEventListener('submit', async (e) => {
+    contactForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
         const formData = {
@@ -68,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!response.ok) {
-                throw new Error("Failed request");
+                throw new Error("Failed to send message");
             }
 
             formStatus.textContent = "✅ Message sent successfully!";
@@ -76,9 +89,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error("Contact Error:", error);
-            formStatus.textContent = "❌ Server error";
+            formStatus.textContent = "❌ Server error. Try again.";
         }
     });
 
+    // Load projects on page load
     fetchProjects();
 });
