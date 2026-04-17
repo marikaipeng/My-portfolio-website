@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ✅ PUT IT HERE (TOP)
+    // FIXED FUNCTION NAME
     window.scrollToProjects = () => {
-    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-};
+        document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+    };
 
     const projectGrid = document.getElementById('project-grid');
     const contactForm = document.getElementById('contact-form');
@@ -13,51 +13,51 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchProjects = async () => {
         try {
             const response = await fetch('http://localhost:5000/projects');
-            if (!response.ok) throw new Error('Failed to fetch projects');
-            
             const projects = await response.json();
-            displayProjects(projects);
-        } catch (error) {
-            projectGrid.innerHTML = `<p class="error">Unable to load projects.</p>`;
-        }
-    };
 
-    const displayProjects = (projects) => {
-        projectGrid.innerHTML = projects.map(project => `
-            <div class="card">
-                <h3>${project.title}</h3>
-                <p>${project.description}</p>
-                <small>Tech: ${project.techStack.join(', ')}</small>
-            </div>
-        `).join('');
+            projectGrid.innerHTML = projects.map(project => `
+                <div class="card">
+                    <h3>${project.title}</h3>
+                    <p>${project.description}</p>
+                    <small>Tech: ${project.techStack.join(', ')}</small>
+                </div>
+            `).join('');
+
+        } catch {
+            projectGrid.innerHTML = `<p>Failed to load projects</p>`;
+        }
     };
 
     // Contact Form
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const form = document.getElementById("contactForm");
+        const formData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            message: document.getElementById("message").value
+        };
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+        try {
+            formStatus.textContent = 'Sending...';
 
-  const data = {
-    name: document.getElementById("name").value,
-    email: document.getElementById("email").value,
-    message: document.getElementById("message").value
-  };
+            const response = await fetch('http://localhost:5000/contact', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(formData)
+            });
 
-  const response = await fetch("https://your-backend-url.onrender.com/contact", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  });
+            if (response.ok) {
+                formStatus.innerHTML = '✅ Message sent!';
+                contactForm.reset();
+            } else {
+                throw new Error();
+            }
 
-  const result = await response.json();
-  alert(result.message);
-});
+        } catch {
+            formStatus.innerHTML = '❌ Error sending message';
+        }
+    });
 
     fetchProjects();
 });
