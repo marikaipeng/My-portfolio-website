@@ -68,3 +68,12 @@ app.get("/messages", async (req, res) => {
         res.status(500).json({ error: "Failed to fetch messages" });
     }
 });
+
+[
+  {
+    "id": 1,
+    "name": "John",
+    "email": "john@gmail.com",
+    "message": "Hello"
+  }
+]
