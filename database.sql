@@ -5,3 +5,10 @@ CREATE TABLE contacts (
   message TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE projects (
+  id SERIAL PRIMARY KEY,
+  title TEXT,
+  description TEXT,
+  techstack TEXT[]
+);
