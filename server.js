@@ -54,3 +54,17 @@ app.post("/contact", async (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("Server running on port " + PORT));
+
+app.get("/messages", async (req, res) => {
+    try {
+        const result = await pool.query(
+            "SELECT * FROM contacts ORDER BY id DESC"
+        );
+
+        res.json(result.rows);
+
+    } catch (err) {
+        console.error("DB ERROR:", err);
+        res.status(500).json({ error: "Failed to fetch messages" });
+    }
+});
