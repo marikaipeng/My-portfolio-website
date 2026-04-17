@@ -17,17 +17,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchProjects = async () => {
         try {
             const response = await fetch(`${API_URL}/projects`);
+
+            if (!response.ok) {
+                throw new Error("API error");
+            }
+
             const projects = await response.json();
+
+            // Handle empty or invalid data
+            if (!Array.isArray(projects) || projects.length === 0) {
+                projectGrid.innerHTML = `<p>No projects found</p>`;
+                return;
+            }
 
             projectGrid.innerHTML = projects.map(project => `
                 <div class="card">
                     <h3>${project.title}</h3>
                     <p>${project.description}</p>
-                    <small>Tech: ${project.techstack.join(', ')}</small>
+                    <small>Tech: ${project.techstack?.join(', ') || 'N/A'}</small>
                 </div>
             `).join('');
 
         } catch (err) {
+            console.error("Project Fetch Error:", err);
             projectGrid.innerHTML = `<p>❌ Failed to load projects</p>`;
         }
     };
@@ -55,16 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(formData)
             });
 
-            const data = await response.json();
-
-            if (response.ok) {
-                formStatus.textContent = "✅ Message sent successfully!";
-                contactForm.reset();
-            } else {
-                formStatus.textContent = "❌ Failed to send message";
+            if (!response.ok) {
+                throw new Error("Failed request");
             }
 
+            formStatus.textContent = "✅ Message sent successfully!";
+            contactForm.reset();
+
         } catch (error) {
+            console.error("Contact Error:", error);
             formStatus.textContent = "❌ Server error";
         }
     });
