@@ -10,9 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Database
+// ✅ FIXED DATABASE CONNECTION
 const pool = new Pool({
-  connectionString: process.env.postgresql://my_portfolio_website_j2ng_user:password@hostname:5432/dbname,
+  connectionString: process.env.DATABASE_URL,
   ssl: {
     rejectUnauthorized: false
   }
@@ -29,7 +29,7 @@ app.get("/projects", async (req, res) => {
     const result = await pool.query("SELECT * FROM projects ORDER BY id DESC");
     res.json(result.rows);
   } catch (err) {
-    console.error(err);
+    console.error("DB ERROR:", err);
     res.status(500).json({ error: "Failed to fetch projects" });
   }
 });
@@ -47,7 +47,7 @@ app.post("/contact", async (req, res) => {
     res.json({ success: true });
 
   } catch (err) {
-    console.error(err);
+    console.error("DB ERROR:", err);
     res.status(500).json({ error: "Database error" });
   }
 });
