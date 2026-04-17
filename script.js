@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const API_URL = "https://my-portfolio-website-1-ot32.onrender.com";
+    const API_URL = "https://my-portfolio-website-m9x2.onrender.com";
 
     // Scroll button
     window.scrollToProjects = () => {
