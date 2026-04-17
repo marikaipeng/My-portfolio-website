@@ -1,8 +1,8 @@
+// 🔥 GLOBAL API URL
+const API_URL = "https://my-portfolio-website-1-ot32.onrender.com";
+
 document.addEventListener("DOMContentLoaded", () => {
-
-    // 🔥 YOUR LIVE BACKEND URL (FIXED)
-    const API_URL = "https://my-portfolio-website-1-ot32.onrender.com";
-
+    
     // =========================
     // SCROLL FUNCTION
     // =========================
@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const projectGrid = document.getElementById("project-grid");
     const contactForm = document.getElementById("contact-form");
     const formStatus = document.getElementById("form-status");
+    const messagesBox = document.getElementById("messages-box");
 
     if (!projectGrid || !contactForm) {
         console.error("Missing required HTML elements");
@@ -49,7 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p>${project.description}</p>
                     <small>Tech: ${project.techstack?.join(", ") || "N/A"}</small>
                 </div>
-            `).join("");
+            `).join(""
+            );
 
         } catch (error) {
             console.error("Project Fetch Error:", error);
@@ -63,14 +65,32 @@ document.addEventListener("DOMContentLoaded", () => {
     contactForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
+        // Get form field elements
+        const nameField = document.getElementById("name");
+        const emailField = document.getElementById("email");
+        const messageField = document.getElementById("message");
+
+        // Validate fields exist
+        if (!nameField || !emailField || !messageField) {
+            console.error("Missing form fields");
+            if (formStatus) formStatus.textContent = "❌ Form error";
+            return;
+        }
+
         const formData = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            message: document.getElementById("message").value
+            name: nameField.value.trim(),
+            email: emailField.value.trim(),
+            message: messageField.value.trim()
         };
 
+        // Basic validation
+        if (!formData.name || !formData.email || !formData.message) {
+            if (formStatus) formStatus.textContent = "❌ All fields are required";
+            return;
+        }
+
         try {
-            formStatus.textContent = "Sending...";
+            if (formStatus) formStatus.textContent = "Sending...";
 
             const response = await fetch(`${API_URL}/contact`, {
                 method: "POST",
@@ -84,48 +104,52 @@ document.addEventListener("DOMContentLoaded", () => {
                 throw new Error("Failed to send message");
             }
 
-            formStatus.textContent = "✅ Message sent successfully!";
+            if (formStatus) formStatus.textContent = "✅ Message sent successfully!";
             contactForm.reset();
 
         } catch (error) {
             console.error("Contact Error:", error);
-            formStatus.textContent = "❌ Server error. Try again.";
+            if (formStatus) formStatus.textContent = "❌ Server error. Try again.";
         }
     });
 
-    // Load projects on page load
-    fetchProjects();
-});
+    // =========================
+    // LOAD MESSAGES FROM BACKEND
+    // =========================
+    const loadMessages = async () => {
+        if (!messagesBox) return;
 
-const messagesBox = document.getElementById("messages-box");
+        try {
+            messagesBox.innerHTML = "<p>Loading messages...</p>";
 
-// Load messages from backend
-async function loadMessages() {
-    try {
-        messagesBox.innerHTML = "<p>Loading messages...</p>";
+            const res = await fetch(`${API_URL}/messages`);
 
-        const res = await fetch(`${API_URL}/messages`);
+            if (!res.ok) throw new Error("Failed to fetch");
 
-        if (!res.ok) throw new Error("Failed to fetch");
+            const messages = await res.json();
 
-        const messages = await res.json();
+            if (!Array.isArray(messages) || messages.length === 0) {
+                messagesBox.innerHTML = "<p>No messages found</p>";
+                return;
+            }
 
-        if (!Array.isArray(messages) || messages.length === 0) {
-            messagesBox.innerHTML = "<p>No messages found</p>";
-            return;
+            messagesBox.innerHTML = messages.map(msg => `
+                <div class="card">
+                    <h3>${msg.name}</h3>
+                    <p><b>Email:</b> ${msg.email}</p>
+                    <p>${msg.message}</p>
+                    <small>ID: ${msg.id}</small>
+                </div>
+            `).join(""
+            );
+
+        } catch (err) {
+            console.error(err);
+            messagesBox.innerHTML = "<p>❌ Failed to load messages</p>";
         }
+    };
 
-        messagesBox.innerHTML = messages.map(msg => `
-            <div class="card">
-                <h3>${msg.name}</h3>
-                <p><b>Email:</b> ${msg.email}</p>
-                <p>${msg.message}</p>
-                <small>ID: ${msg.id}</small>
-            </div>
-        `).join("");
-
-    } catch (err) {
-        console.error(err);
-        messagesBox.innerHTML = "<p>❌ Failed to load messages</p>";
-    }
-}
+    // Load projects and messages on page load
+    fetchProjects();
+    loadMessages();
+});
