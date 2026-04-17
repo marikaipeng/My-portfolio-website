@@ -37,10 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const formData = {
-            name: name.value,
-            email: email.value,
-            message: message.value
-        };
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    message: document.getElementById("message").value
+};
 
         try {
             formStatus.textContent = 'Sending...';
