@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: Arial;
+  font-family: 'Arial', 'Segoe UI', sans-serif;
   margin: 0;
   background: linear-gradient(-45deg, var(--color1), var(--color2), var(--color3), var(--color4));
   background-size: 400% 400%;
@@ -102,6 +102,16 @@ section {
   transform: translateY(-10px) scale(1.05);
 }
 
+/* Messages box cards */
+#messages-box .card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  color: black;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: auto;
+}
+
 /* Contact form */
 form {
   display: flex;
@@ -147,6 +157,7 @@ h2 {
   background: linear-gradient(to right, var(--color1), var(--color2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 20px;
 }
 
@@ -169,15 +180,7 @@ h2 {
 }
 
 #messages-box {
-    margin-top: 20px;
-    display: grid;
-    gap: 15px;
-}
-
-.card {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    color: black;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  margin-top: 20px;
+  display: grid;
+  gap: 15px;
 }
