@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Database
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.postgresql://my_portfolio_website_j2ng_user:password@hostname:5432/dbname,
   ssl: {
     rejectUnauthorized: false
   }
