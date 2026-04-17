@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // FIXED FUNCTION NAME
+    const API_URL = "https://postgresql://my_portfolio_website_j2ng_user:password@hostname:5432/dbname"; //
+
     window.scrollToProjects = () => {
         document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
     };
@@ -9,10 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
-    // Fetch Projects
+    // FETCH PROJECTS
     const fetchProjects = async () => {
         try {
-            const response = await fetch('http://localhost:5000/projects');
+            const response = await fetch(`${API_URL}/projects`);
             const projects = await response.json();
 
             projectGrid.innerHTML = projects.map(project => `
@@ -28,34 +29,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Contact Form
+    // CONTACT FORM
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const formData = {
-            name: document.getElementById("name").value,
-            email: document.getElementById("email").value,
-            message: document.getElementById("message").value
+            name: name.value,
+            email: email.value,
+            message: message.value
         };
 
         try {
             formStatus.textContent = 'Sending...';
 
-            const API_URL = "https://your-backend-url.onrender.com"; {
+            const response = await fetch(`${API_URL}/contact`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(formData)
             });
 
             if (response.ok) {
-                formStatus.innerHTML = '✅ Message sent!';
+                formStatus.textContent = '✅ Message sent!';
                 contactForm.reset();
             } else {
                 throw new Error();
             }
 
         } catch {
-            formStatus.innerHTML = '❌ Error sending message';
+            formStatus.textContent = '❌ Error sending message';
         }
     });
 
